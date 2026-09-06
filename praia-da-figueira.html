@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Balneários em Bonito</title>
+<title>Praia da Figueira — Bonito MS</title>
 <style>
   :root {
     --bg: #faf8fd;
@@ -346,6 +346,60 @@
   }
 
   /* filter chips reused inline within flutuações etc not needed anymore */
+
+
+  .detail-hero {
+    padding: 44px 24px 8px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .breadcrumb { font-size: 13.5px; color: var(--muted); margin-bottom: 18px; }
+  .breadcrumb a { color: var(--purple-dark); text-decoration: none; font-weight: 600; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .detail-hero .cat-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--chip-bg);
+    color: var(--purple-dark);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .detail-hero h1 { margin: 0 0 8px; font-size: clamp(26px, 4vw, 36px); }
+  .detail-hero .subtitle { color: var(--muted); font-size: 17px; margin: 0 0 20px; }
+  .detail-body {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .detail-body p.body-text { margin: 0; font-size: 16px; line-height: 1.65; }
+  .detail-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+    border-top: 1px dashed var(--border);
+    border-bottom: 1px dashed var(--border);
+    padding: 18px 0;
+  }
+  .detail-info-grid .info-item { font-size: 14.5px; color: var(--muted); display: flex; gap: 8px; }
+  .detail-who, .detail-diff {
+    background: var(--chip-bg);
+    border-radius: 12px;
+    padding: 16px 18px;
+    font-size: 15px;
+  }
+  .detail-who b, .detail-diff b { color: var(--purple-dark); display: block; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: .02em; }
+  .detail-cta { text-align: center; margin-top: 6px; }
+  .detail-cta .btn { font-size: 16px; padding: 14px 28px; }
 </style>
 </head>
 <body>
@@ -370,51 +424,27 @@
 
 <main>
 
-<section class="section-block" id="balnearios">
-    <div class="section-head">
-      <span class="icon-label">🏖️ BALNEÁRIOS</span>
-      <h2>Balneários em Bonito</h2>
-      <p>Nem todo dia da viagem precisa ter horário marcado para cada atividade. Os balneários são ideais para desacelerar e aproveitar os rios e áreas de banho com mais liberdade. O melhor balneário depende muito de como você quer aproveitar o dia.</p>
+  <div class="detail-hero">
+    <div class="breadcrumb"><a href="index.html">Início</a> &nbsp;/&nbsp; <a href="balnearios.html">Balneários</a> &nbsp;/&nbsp; Praia da Figueira</div>
+    <span class="cat-tag">🏖️ Balneários</span>
+    <h1>Praia da Figueira</h1>
+    <p class="subtitle">Clima de praia em plena Bonito</p>
+  </div>
+
+  <div class="detail-body">
+    <p class="body-text">Grande lagoa de aprox. 60 mil m², cercada por areia clara. Atividades opcionais como tirolesa, caiaque, pedalinho, stand up paddle e passeio de barco. Restaurante, lanchonete, redário e áreas de descanso.</p>
+    <div class="detail-info-grid">
+          <div class="info-item">📍 Aprox. 16 km de Bonito</div>
+          <div class="info-item">👶 Indicada para todas as idades</div>
+          <div class="info-item">🎯 Diversas atividades opcionais</div>
+          <div class="info-item">💪 Esforço: livre</div>
     </div>
-    <div class="tours-grid">
-
-      <div class="tour-card">
-        <h3>Balneário Municipal</h3>
-        <p class="subtitle">Um clássico às margens do Rio Formoso</p>
-        <p class="body-text">Um dos balneários mais tradicionais, bem próximo da cidade. O Rio Formoso forma diferentes espaços de banho, com piraputangas e outras espécies visíveis na água. Estacionamento, lanchonetes, restaurantes, sanitários e áreas esportivas.</p>
-        <a class="btn btn-purple cta" href="balneario-municipal.html">Ver passeio completo →</a>
-      </div>
-
-      <div class="tour-card">
-        <h3>Praia da Figueira</h3>
-        <p class="subtitle">Clima de praia em plena Bonito</p>
-        <p class="body-text">Grande lagoa de aprox. 60 mil m², cercada por areia clara. Atividades opcionais como tirolesa, caiaque, pedalinho, stand up paddle e passeio de barco. Restaurante, lanchonete, redário e áreas de descanso.</p>
-        <a class="btn btn-purple cta" href="praia-da-figueira.html">Ver passeio completo →</a>
-      </div>
-
-      <div class="tour-card">
-        <h3>Bosque das Águas</h3>
-        <p class="subtitle">Para curtir o Rio Formoso com tranquilidade</p>
-        <p class="body-text">Balneário de proposta rústica e integrado à natureza, com seis decks em diferentes pontos do Rio Formoso, inclusive áreas para crianças. Ideal para nadar, descansar e aproveitar o rio sem programação extensa.</p>
-        <a class="btn btn-purple cta" href="bosque-das-aguas.html">Ver passeio completo →</a>
-      </div>
-
-      <div class="tour-card">
-        <h3>Eco Park Porto da Ilha</h3>
-        <p class="subtitle">Balneário para quem também quer aventura</p>
-        <p class="body-text">Às margens do Rio Formoso, combina área de lazer com atividades como bote, boia cross, caiaque inflável e stand up paddle, contratadas separadamente ou em combinações.</p>
-        <a class="btn btn-purple cta" href="eco-park-porto-da-ilha.html">Ver passeio completo →</a>
-      </div>
-
-      <div class="tour-card">
-        <h3>Balneário do Sol</h3>
-        <p class="subtitle">Lazer às margens do Rio Formoso</p>
-        <p class="body-text">Áreas para banho no Rio Formoso e piscinas, com piraputangas, curimbas e dourados no cenário. Restaurante, churrasqueiras, salão de jogos e parque infantil.</p>
-        <a class="btn btn-purple cta" href="balneario-do-sol.html">Ver passeio completo →</a>
-      </div>
-
+    <div class="detail-who"><b>Para quem indicamos</b>famílias e grupos que querem passar várias horas no mesmo lugar.</div>
+    <div class="detail-diff"><b>Diferencial</b>estrutura de praia de água doce e variedade de atividades.</div>
+    <div class="detail-cta">
+      <a class="btn btn-green" href="https://wa.me/5531995793319?text=Ol%C3%A1!%20Vi%20o%20passeio%20Praia%20da%20Figueira%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="flex-shrink:0;"><path d="M12.04 2c-5.52 0-10 4.48-10 10 0 1.77.46 3.45 1.32 4.94L2 22l5.25-1.38a9.94 9.94 0 0 0 4.79 1.22h.01c5.52 0 10-4.48 10-10s-4.48-10-10-10zm0 18.15h-.01a8.2 8.2 0 0 1-4.17-1.14l-.3-.18-3.12.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.26-4.3c0-4.52 3.68-8.2 8.2-8.2 2.19 0 4.25.85 5.8 2.4a8.14 8.14 0 0 1 2.4 5.8c0 4.52-3.68 8.2-8.17 8.2zm4.5-6.13c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.47-.02-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.06 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.19.21-.58.21-1.08.15-1.19-.06-.11-.23-.17-.48-.29z"/></svg><span>Quero conhecer a Praia da Figueira</span></a>
     </div>
-  </section>
+  </div>
 
   <div class="final-cta">
     <h2>💜 Qual passeio combina com o seu roteiro?</h2>
