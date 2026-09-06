@@ -3,294 +3,857 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Passeios de Bonito</title>
+<title>Passeios em Bonito MS</title>
 <style>
   :root {
-    --bg: #f4f9f8;
-    --card-bg: #ffffff;
-    --text: #16302b;
-    --muted: #4c6b63;
-    --accent: #0f9d80;
-    --accent-dark: #0b7c66;
-    --border: #dbeee8;
-    --badge-bg: #e4f5ef;
+    --bg: #faf8fd;
+    --surface: #ffffff;
+    --text: #241a33;
+    --muted: #665a78;
+    --purple: #6a2ea6;
+    --purple-dark: #4f2180;
+    --green: #1fae6b;
+    --green-dark: #16884f;
+    --border: #ece5f6;
+    --chip-bg: #f1e9fb;
+    --hero-overlay: rgba(30, 12, 51, 0.35);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0f1a17;
-      --card-bg: #16241f;
-      --text: #e8f3ef;
-      --muted: #9fc0b6;
-      --accent: #2fd6ac;
-      --accent-dark: #23b092;
-      --border: #223b33;
-      --badge-bg: #1c332c;
+      --bg: #170f21;
+      --surface: #211730;
+      --text: #f1ecf9;
+      --muted: #b8a9cf;
+      --purple: #b083e8;
+      --purple-dark: #d1aef5;
+      --green: #3fd98c;
+      --green-dark: #2fbd77;
+      --border: #33254a;
+      --chip-bg: #2a1e3d;
+      --hero-overlay: rgba(10, 5, 20, 0.55);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0f1a17;
-    --card-bg: #16241f;
-    --text: #e8f3ef;
-    --muted: #9fc0b6;
-    --accent: #2fd6ac;
-    --accent-dark: #23b092;
-    --border: #223b33;
-    --badge-bg: #1c332c;
+    --bg: #170f21;
+    --surface: #211730;
+    --text: #f1ecf9;
+    --muted: #b8a9cf;
+    --purple: #b083e8;
+    --purple-dark: #d1aef5;
+    --green: #3fd98c;
+    --green-dark: #2fbd77;
+    --border: #33254a;
+    --chip-bg: #2a1e3d;
+    --hero-overlay: rgba(10, 5, 20, 0.55);
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--text);
     font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-  }
-  header {
-    padding: 56px 24px 40px;
-    text-align: center;
-    background: linear-gradient(180deg, var(--badge-bg), transparent);
-  }
-  header h1 {
-    margin: 0 0 8px;
-    font-size: clamp(28px, 4vw, 42px);
-    color: var(--accent-dark);
-  }
-  header p {
-    margin: 0 auto;
-    max-width: 640px;
-    color: var(--muted);
-    font-size: 17px;
     line-height: 1.5;
   }
-  .filters {
+  a { color: inherit; }
+  img { display: block; }
+
+  /* ---- Nav ---- */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    padding: 0 24px 32px;
-  }
-  .filter-btn {
-    border: 1px solid var(--border);
-    background: var(--card-bg);
-    color: var(--text);
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
-  }
-  .filter-btn:hover { border-color: var(--accent); }
-  .filter-btn.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #06231c;
-    font-weight: 600;
-  }
-  main {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px 64px;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 22px;
-  }
-  .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .card .top {
-    display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: flex-start;
+    padding: 14px 24px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
     gap: 10px;
-  }
-  .card h2 {
-    margin: 0;
-    font-size: 19px;
-  }
-  .badge {
-    flex-shrink: 0;
-    background: var(--badge-bg);
-    color: var(--accent-dark);
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 999px;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--purple-dark);
     white-space: nowrap;
   }
-  .card p.desc {
-    margin: 0;
+  .brand span.tag {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
     color: var(--muted);
-    font-size: 14.5px;
-    line-height: 1.5;
-    flex-grow: 1;
   }
-  .meta {
+  .navlinks {
     display: flex;
+    gap: 18px;
     flex-wrap: wrap;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--muted);
-    border-top: 1px dashed var(--border);
-    padding-top: 10px;
-    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 600;
   }
-  .meta span { white-space: nowrap; }
+  .navlinks a { text-decoration: none; opacity: 0.85; }
+  .navlinks a:hover { opacity: 1; color: var(--purple-dark); }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: 999px;
+    padding: 11px 20px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-purple { background: var(--purple); color: #fff; }
+  .btn-purple:hover { background: var(--purple-dark); }
+  .btn-green { background: var(--green); color: #06301d; }
+  .btn-green:hover { background: var(--green-dark); }
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--purple);
+    color: var(--purple-dark);
+  }
+
+  /* ---- Hero ---- */
+  .hero {
+    position: relative;
+    padding: 72px 24px 56px;
+    text-align: center;
+    background:
+      linear-gradient(180deg, var(--hero-overlay), var(--hero-overlay)),
+      linear-gradient(135deg, #1c6e63, #16455f 60%, #123047);
+    color: #fff;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.10), transparent 45%),
+                       radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08), transparent 45%);
+  }
+  .hero-inner { position: relative; max-width: 780px; margin: 0 auto; }
+  .hero .eyebrow {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    margin: 0 0 14px;
+    font-size: clamp(30px, 5vw, 48px);
+    line-height: 1.1;
+  }
+  .hero h1 b { color: #ffd76b; }
+  .hero p.lead {
+    max-width: 620px;
+    margin: 0 auto 26px;
+    font-size: 17px;
+    color: rgba(255,255,255,0.92);
+  }
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  main { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  section.intro { padding: 56px 0 8px; text-align: center; }
+  section.intro h2 { font-size: clamp(22px, 3vw, 30px); margin: 0 0 14px; }
+  section.intro p { max-width: 720px; margin: 0 auto; color: var(--muted); font-size: 16px; }
+
+  /* ---- Category overview cards ---- */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+    padding: 40px 0 16px;
+  }
+  .cat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .cat-card .photo {
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+  }
+  .cat-card .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .cat-card h3 { margin: 0; font-size: 17px; display: flex; align-items: center; gap: 8px; }
+  .cat-card p { margin: 0; color: var(--muted); font-size: 14px; flex: 1; }
+  .cat-card .btn { align-self: flex-start; }
+
+  .photo.flutuacoes { background-image: linear-gradient(160deg, rgba(31,174,107,0.35), rgba(19,80,60,0.55)), radial-gradient(circle, #2fd6ac, #0d5a45); }
+  .photo.grutas { background-image: linear-gradient(160deg, rgba(106,46,166,0.35), rgba(40,17,66,0.55)), radial-gradient(circle, #7d4bc9, #26123f); }
+  .photo.trilhas { background-image: linear-gradient(160deg, rgba(31,142,80,0.35), rgba(16,60,38,0.55)), radial-gradient(circle, #3fbf6e, #123a24); }
+  .photo.balnearios { background-image: linear-gradient(160deg, rgba(31,120,174,0.35), rgba(13,56,86,0.55)), radial-gradient(circle, #33a6d6, #0e3b52); }
+
+  /* ---- Benefits strip ---- */
+  .benefits {
+    background: var(--chip-bg);
+    border-radius: 16px;
+    padding: 28px 20px;
+    margin: 32px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 18px;
+    text-align: center;
+  }
+  .benefits .item { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
+  .benefits .item .icon { font-size: 22px; }
+
+  /* ---- Section headers ---- */
+  .section-block { padding: 64px 0 16px; scroll-margin-top: 84px; }
+  .section-head { text-align: center; max-width: 680px; margin: 0 auto 36px; }
+  .section-head .icon-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--chip-bg);
+    color: var(--purple-dark);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .section-head h2 { margin: 0 0 12px; font-size: clamp(22px, 3vw, 30px); }
+  .section-head p { margin: 0; color: var(--muted); font-size: 15.5px; }
+
+  /* ---- Tour cards ---- */
+  .tours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+    padding-bottom: 12px;
+  }
+  .tour-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .tour-card h3 { margin: 0; font-size: 18.5px; }
+  .tour-card .subtitle { color: var(--muted); font-size: 14px; margin: -6px 0 0; }
+  .tour-card p.body-text { margin: 0; font-size: 14.5px; color: var(--text); opacity: 0.92; }
+  .info-list {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 12px 0 0;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .info-list li { display: flex; gap: 8px; }
+  .who, .diff {
+    background: var(--chip-bg);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13.5px;
+  }
+  .who b, .diff b { color: var(--purple-dark); }
+  .tour-card .cta {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 13.5px;
+  }
+  .note {
+    background: #fff4de;
+    color: #6b4a06;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .note { background: #3a2f14; color: #f4d78a; }
+  }
+  :root[data-theme="dark"] .note { background: #3a2f14; color: #f4d78a; }
+
+  /* ---- Qual passeio escolher ---- */
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    padding-bottom: 20px;
+  }
+  .guide-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .guide-card h4 { margin: 0 0 10px; font-size: 15.5px; color: var(--purple-dark); }
+  .guide-card ul { margin: 0; padding-left: 18px; font-size: 14px; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
+
+  /* ---- Final CTA ---- */
+  .final-cta {
+    margin: 64px 0 40px;
+    background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+    color: #fff;
+    border-radius: 20px;
+    padding: 44px 30px;
+    text-align: center;
+  }
+  .final-cta h2 { margin: 0 0 12px; font-size: clamp(22px, 3vw, 28px); }
+  .final-cta p { max-width: 620px; margin: 0 auto 22px; color: rgba(255,255,255,0.9); font-size: 15.5px; }
+
   footer {
     text-align: center;
     color: var(--muted);
     font-size: 13px;
-    padding: 24px;
+    padding: 28px 24px 40px;
   }
-  [hidden] { display: none !important; }
+
+  /* filter chips reused inline within flutuações etc not needed anymore */
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Passeios de Bonito - MS</h1>
-  <p>Um roteiro com os principais atrativos ecoturisticos de Bonito, Mato Grosso do Sul: rios de aguas cristalinas, grutas, cachoeiras e flutuacao entre peixes.</p>
+<nav class="navbar">
+  <div class="brand">
+    ✈️ Passaporte Mágico
+    <span class="tag">Transformando sonhos em realidade</span>
+  </div>
+  <div class="navlinks">
+    <a href="#flutuacoes">Flutuações</a>
+    <a href="#grutas">Grutas</a>
+    <a href="#trilhas">Trilhas e Cachoeiras</a>
+    <a href="#balnearios">Balneários</a>
+    <a href="#qual-escolher">Qual escolher?</a>
+  </div>
+  <a class="btn btn-purple" href="https://wa.me/?text=Ol%C3%A1!%20Estou%20vendo%20o%20Guia%20de%20Bonito%20no%20site%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20ajuda%20para%20montar%20meu%20roteiro." target="_blank" rel="noopener">📲 Solicitar roteiro</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">📍 BONITO · MS</span>
+    <h1>Passeios em <b>Bonito</b></h1>
+    <p class="lead">Natureza, águas cristalinas e experiências que ficam para sempre na memória.</p>
+    <div class="hero-actions">
+      <a class="btn btn-green" href="#qual-escolher">Qual experiência combina com você?</a>
+      <a class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.6);" href="#flutuacoes">Ver os passeios</a>
+    </div>
+  </div>
 </header>
 
-<div class="filters" id="filters">
-  <button class="filter-btn active" data-cat="todos">Todos</button>
-  <button class="filter-btn" data-cat="flutuacao">Flutuacao</button>
-  <button class="filter-btn" data-cat="gruta">Gruta</button>
-  <button class="filter-btn" data-cat="cachoeira">Cachoeira</button>
-  <button class="filter-btn" data-cat="mergulho">Mergulho</button>
-</div>
-
 <main>
-  <div class="grid" id="grid"></div>
+
+  <section class="intro">
+    <h2>Passeios em Bonito: qual experiência combina com você?</h2>
+    <p>Bonito é daqueles destinos em que escolher os passeios faz toda a diferença na viagem. Aqui, não existe apenas "um passeio melhor que o outro". Existem experiências completamente diferentes: você pode flutuar em rios de águas cristalinas pela manhã, explorar uma caverna à tarde, caminhar entre cachoeiras no dia seguinte e reservar outro dia apenas para relaxar às margens do Rio Formoso. Por isso, dividimos os principais passeios de Bonito em quatro grandes experiências.</p>
+  </section>
+
+  <div class="cat-grid">
+    <div class="cat-card">
+      <div class="photo flutuacoes"></div>
+      <div class="body">
+        <h3>💦 Flutuações</h3>
+        <p>Entre na água e descubra o mundo que existe sob a superfície dos rios e nascentes de Bonito.</p>
+        <a class="btn btn-purple" href="#flutuacoes">Conhecer as flutuações →</a>
+      </div>
+    </div>
+    <div class="cat-card">
+      <div class="photo grutas"></div>
+      <div class="body">
+        <h3>🪨 Grutas</h3>
+        <p>Cavernas, formações geológicas e cenários moldados pela natureza ao longo de milhares de anos.</p>
+        <a class="btn btn-purple" href="#grutas">Conhecer as grutas →</a>
+      </div>
+    </div>
+    <div class="cat-card">
+      <div class="photo trilhas"></div>
+      <div class="body">
+        <h3>🌿 Trilhas e Cachoeiras</h3>
+        <p>Caminhadas em meio à mata, piscinas naturais e várias paradas para banho.</p>
+        <a class="btn btn-purple" href="#trilhas">Conhecer as trilhas →</a>
+      </div>
+    </div>
+    <div class="cat-card">
+      <div class="photo balnearios"></div>
+      <div class="body">
+        <h3>🏖️ Balneários</h3>
+        <p>Para aproveitar Bonito com mais liberdade, relaxar e curtir as águas.</p>
+        <a class="btn btn-purple" href="#balnearios">Conhecer os balneários →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="benefits">
+    <div class="item"><span class="icon">🌱</span>Natureza preservada e sustentável</div>
+    <div class="item"><span class="icon">👨‍👩‍👧</span>Passeios para todas as idades</div>
+    <div class="item"><span class="icon">📷</span>Paisagens que rendem fotos incríveis</div>
+    <div class="item"><span class="icon">🛡️</span>Segurança e guias especializados</div>
+    <div class="item"><span class="icon">💜</span>Experiências que vão além da viagem</div>
+  </div>
+
+  <!-- ===================== FLUTUAÇÕES ===================== -->
+  <section class="section-block" id="flutuacoes">
+    <div class="section-head">
+      <span class="icon-label">💦 FLUTUAÇÕES</span>
+      <h2>Flutuações em Bonito</h2>
+      <p>Se existe uma experiência que representa Bonito, é a flutuação. Equipado com máscara e snorkel, o visitante percorre rios e nascentes de águas transparentes observando peixes, plantas e formações subaquáticas. Nossa dica: em uma primeira viagem a Bonito, inclua pelo menos uma flutuação no roteiro.</p>
+    </div>
+    <div class="tours-grid">
+
+      <div class="tour-card">
+        <h3>Rio Sucuri</h3>
+        <p class="subtitle">Flutue em uma das águas mais transparentes de Bonito</p>
+        <p class="body-text">A experiência começa com uma caminhada leve até a região das nascentes. Depois, o visitante segue por um percurso de aproximadamente 1.800 metros, acompanhado por guia e barco de apoio. Há também opção de passeio embarcado, sem entrar na água.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 19 km de Bonito</li>
+          <li>⏱️ Reserve aprox. meio período</li>
+          <li>👶 Idade mínima informada: 4 anos</li>
+          <li>🏊 Não é necessário saber nadar</li>
+          <li>🌡️ Água em torno de 23°C</li>
+          <li>💪 Esforço: leve</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> primeira flutuação, famílias, casais e quem prioriza águas extremamente transparentes.</div>
+        <div class="diff"><b>Diferencial:</b> cristalinidade + percurso longo + barco de apoio.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Rio%20Sucuri%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero incluir o Rio Sucuri</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Recanto Ecológico Rio da Prata</h3>
+        <p class="subtitle">Uma das experiências subaquáticas mais completas da região</p>
+        <p class="body-text">Fica em Jardim, próximo a Bonito. Combina trilha pela mata, treinamento e um longo trecho de flutuação a partir do Rio Olho d'Água (~1,7 km), com grandes cardumes de piraputangas, curimbatás e dourados. Tradicionalmente finalizado com almoço regional na fazenda.</p>
+        <ul class="info-list">
+          <li>📍 Região de Jardim, aprox. 45–46 km de Bonito</li>
+          <li>⏱️ Reserve boa parte do dia</li>
+          <li>👶 Idade mínima: 6 anos</li>
+          <li>🐟 Grande quantidade e variedade de peixes</li>
+          <li>🍽️ Operação com almoço</li>
+          <li>💪 Esforço: leve a moderado</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> quem quer uma das flutuações mais completas e não se importa em dedicar mais tempo do dia.</div>
+        <div class="diff"><b>Diferencial:</b> extensão da flutuação e abundância de vida aquática.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Rio%20da%20Prata%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer o Rio da Prata</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Aquário Natural</h3>
+        <p class="subtitle">Uma ótima escolha para começar a flutuar</p>
+        <p class="body-text">Muito próximo de Bonito. Após caminhada curta, chega-se à nascente da Baía Bonita para um percurso de ~900 metros em águas cristalinas, com cerca de 40 minutos de flutuação e barco de apoio. Depois, o roteiro ainda passa pelo Rio Formoso.</p>
+        <ul class="info-list">
+          <li>📍 Apenas 7 km de Bonito</li>
+          <li>⏱️ Experiência total de aprox. 2h30</li>
+          <li>🌊 Cerca de 900 metros de flutuação</li>
+          <li>🚤 Barco de apoio</li>
+          <li>💪 Esforço: leve</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> iniciantes, famílias e quem quer combinar dois passeios no mesmo dia.</div>
+        <div class="diff"><b>Diferencial:</b> proximidade da cidade e experiência compacta.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Aqu%C3%A1rio%20Natural%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer o Aquário Natural</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Nascente Azul</h3>
+        <p class="subtitle">Água azul-turquesa e estrutura para aproveitar o dia</p>
+        <p class="body-text">Trilha planejada com foco em segurança e acessibilidade até a nascente de tonalidade azul-turquesa. Flutuação de baixo grau de dificuldade, com recursos como rampas e cadeira anfíbia. O ingresso pode ser associado à estrutura do balneário.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 33 km de Bonito</li>
+          <li>⏱️ Cerca de 2 horas de experiência total</li>
+          <li>👶 Idade mínima: 4 anos</li>
+          <li>♿ Recursos de acessibilidade</li>
+          <li>💪 Esforço: baixo</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> famílias com crianças pequenas, primeira flutuação, idosos e grupos mistos.</div>
+        <div class="diff"><b>Diferencial:</b> boa acessibilidade e flutuação combinada com lazer.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Nascente%20Azul%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer a Nascente Azul</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Barra do Sucuri</h3>
+        <p class="subtitle">Encontro entre dois rios e águas cristalinas</p>
+        <p class="body-text">Na região onde o Rio Sucuri encontra o Rio Formoso, é possível perceber a diferença de coloração e transparência entre os dois. Parte do percurso é em barco elétrico, outra em flutuação — cerca de 1.300 metros no total.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 17 km de Bonito</li>
+          <li>⏱️ Meio período</li>
+          <li>🚤 Combina barco e flutuação</li>
+          <li>💪 Esforço: leve</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> quem quer conhecer o Rio Sucuri em uma dinâmica diferente.</div>
+        <div class="diff"><b>Diferencial:</b> o encontro visual do Rio Sucuri com o Rio Formoso.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Barra%20do%20Sucuri%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer a Barra do Sucuri</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Lagoa Misteriosa</h3>
+        <p class="subtitle">A sensação de flutuar sobre um abismo azul</p>
+        <p class="body-text">Localizada em uma dolina coberta por vegetação, com água de enorme transparência e sensação de flutuar sobre um grande abismo azul. Acesso por trilha e uma longa escadaria.</p>
+        <ul class="info-list">
+          <li>📍 Jardim/MS, aprox. 46 km de Bonito</li>
+          <li>⏱️ Cerca de 2 horas de atividade</li>
+          <li>👶 Idade mínima: 6 anos</li>
+          <li>🪜 Aprox. 200 degraus de acesso</li>
+          <li>💪 Esforço: moderado</li>
+        </ul>
+        <div class="note">⚠️ Flutuação sazonal: pode ficar suspensa em determinados meses devido à proliferação de microalgas. Confirme a disponibilidade para a sua data.</div>
+        <div class="who"><b>Para quem indicamos:</b> quem busca uma experiência contemplativa, diferente das flutuações em rios.</div>
+        <div class="diff"><b>Diferencial:</b> a visão do enorme abismo subaquático.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Lagoa%20Misteriosa%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20a%20opera%C3%A7%C3%A3o%20para%20minha%20viagem." target="_blank" rel="noopener">Consultar operação da Lagoa Misteriosa</a>
+      </div>
+
+      <div class="tour-card" id="gruta-do-mimoso">
+        <h3>Gruta do Mimoso — Flutuação</h3>
+        <p class="subtitle">Flutuação dentro de uma caverna</p>
+        <p class="body-text">Duas experiências características de Bonito juntas: gruta e flutuação. Aprox. 300 metros de trilha e uma escadaria de ~78 degraus até a parte alagada da caverna, onde é possível flutuar observando estalactites e formações calcárias.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 29 km de Bonito</li>
+          <li>⏱️ Meio período</li>
+          <li>👶 Idade mínima para flutuação: 8 anos</li>
+          <li>🪜 Cerca de 78 degraus (pode variar)</li>
+          <li>💪 Esforço: leve a moderado</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> quem quer algo diferente das flutuações tradicionais de rio e gosta de cavernas.</div>
+        <div class="diff"><b>Diferencial:</b> flutuar em águas transparentes dentro de uma caverna.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Gruta%20do%20Mimoso%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer a Gruta do Mimoso</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== GRUTAS ===================== -->
+  <section class="section-block" id="grutas">
+    <div class="section-head">
+      <span class="icon-label">🪨 GRUTAS</span>
+      <h2>Grutas em Bonito</h2>
+      <p>Debaixo da superfície, Bonito guarda outro universo. As cavernas da região apresentam estalactites, estalagmites, colunas, travertinos e lagos subterrâneos formados ao longo de milhares de anos. Quantidade de degraus, tipo de acesso e esforço físico variam bastante entre os atrativos.</p>
+    </div>
+    <div class="tours-grid">
+
+      <div class="tour-card">
+        <h3>Gruta do Lago Azul</h3>
+        <p class="subtitle">O cartão-postal de Bonito</p>
+        <p class="body-text">A descida leva até uma enorme cavidade com o lago subterrâneo de coloração azul intensa. A visita é contemplativa — não se entra no lago. A caverna tem importância geológica e paleontológica, com fósseis de animais extintos, e é protegida como Monumento Natural.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 21 km de Bonito</li>
+          <li>⏱️ Meio período</li>
+          <li>👶 Idade mínima: 6 anos</li>
+          <li>🪜 Extensa escadaria de acesso</li>
+          <li>👟 Tênis ou calçado adequado essencial</li>
+          <li>💪 Esforço: moderado</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> primeira viagem a Bonito e quem quer conhecer um dos maiores cartões-postais.</div>
+        <div class="diff"><b>Diferencial:</b> a grandiosidade da caverna e o famoso lago azul.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Gruta%20do%20Lago%20Azul%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero visitar a Gruta do Lago Azul</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Grutas de São Miguel</h3>
+        <p class="subtitle">Caminhe entre formações milenares</p>
+        <p class="body-text">Caverna seca, permitindo caminhar próximo a estalactites, estalagmites, travertinos e outras formações. Antes de entrar, o passeio passa por uma ponte suspensa no cerrado e mirantes. O retorno ao receptivo é feito em carrinho elétrico.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 18 km de Bonito</li>
+          <li>⏱️ Meio período</li>
+          <li>👶 Idade mínima: 5 anos</li>
+          <li>👟 Uso de tênis obrigatório</li>
+          <li>💪 Esforço: leve a moderado</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> quem gosta de geologia e quer observar formações de perto.</div>
+        <div class="diff"><b>Diferencial:</b> caverna seca com caminhada entre as formações.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Grutas%20de%20S%C3%A3o%20Miguel%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer as Grutas de São Miguel</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Gruta Catedral</h3>
+        <p class="subtitle">Uma opção próxima ao centro de Bonito</p>
+        <p class="body-text">Caminhada curta pela mata (~280 m) até o interior de uma caverna iluminada, com entrada e saída diferentes — sem refazer o caminho. Cerca de 60 degraus internos, com estalactites, estalagmites, colunas e coraloides. Possui museu no receptivo.</p>
+        <ul class="info-list">
+          <li>📍 Apenas 4 km de Bonito</li>
+          <li>⏱️ Meio período</li>
+          <li>👶 Idade mínima: 5 anos</li>
+          <li>💪 Esforço: leve</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> famílias e quem quer conhecer uma gruta sem deslocamento longo.</div>
+        <div class="diff"><b>Diferencial:</b> proximidade de Bonito e percurso acessível.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Gruta%20Catedral%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer a Gruta Catedral</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Gruta do Mimoso</h3>
+        <p class="subtitle">Também é uma gruta — veja o passeio completo</p>
+        <p class="body-text">A Gruta do Mimoso combina caverna e flutuação. Confira todos os detalhes na seção de Flutuações.</p>
+        <a class="btn btn-outline cta" href="#gruta-do-mimoso">Ver detalhes na seção Flutuações →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== TRILHAS E CACHOEIRAS ===================== -->
+  <section class="section-block" id="trilhas">
+    <div class="section-head">
+      <span class="icon-label">🌿 TRILHAS E CACHOEIRAS</span>
+      <h2>Trilhas e Cachoeiras em Bonito</h2>
+      <p>Prepare a roupa de banho. Os circuitos de cachoeiras combinam caminhadas pela mata com paradas em piscinas naturais, quedas d'água e rios. O ponto mais importante na escolha é observar o tamanho da trilha e o nível de esforço.</p>
+    </div>
+    <div class="tours-grid">
+
+      <div class="tour-card">
+        <h3>Estância Mimosa</h3>
+        <p class="subtitle">Cachoeiras, mata e clima de fazenda</p>
+        <p class="body-text">Ecoturismo, natureza e atmosfera de fazenda. O circuito percorre mata e diferentes pontos de banho em cachoeiras e piscinas naturais, com observação de aves e passeio a cavalo como opções extras. Almoço regional preparado em fogão a lenha.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 25 km de Bonito</li>
+          <li>⏱️ Meio período</li>
+          <li>👶 Idade mínima: 3 anos</li>
+          <li>🐦 Mais de 250 espécies de aves registradas</li>
+          <li>💪 Esforço: leve a moderado</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> famílias, casais e quem quer unir cachoeiras + natureza + experiência rural.</div>
+        <div class="diff"><b>Diferencial:</b> passeio de cachoeiras com estrutura e atmosfera de fazenda.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Est%C3%A2ncia%20Mimosa%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer a Estância Mimosa</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Parque das Cachoeiras</h3>
+        <p class="subtitle">Sete paradas em um circuito leve</p>
+        <p class="body-text">Às margens do Rio Mimoso, reúne sete cachoeiras e piscinas naturais. Percurso de ~1.700 m em grupo com guia, por passarelas na mata ciliar. A caminhada completa leva cerca de três horas e é classificada como leve.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 17 km de Bonito</li>
+          <li>🥾 Trilha: cerca de 1,7 km</li>
+          <li>⏱️ Aprox. 3 horas de circuito</li>
+          <li>💦 Sete cachoeiras</li>
+          <li>👟 Calçado aberto não é permitido</li>
+          <li>💪 Esforço: leve</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> famílias e viajantes que querem várias cachoeiras sem caminhada pesada.</div>
+        <div class="diff"><b>Diferencial:</b> ótima relação entre quantidade de cachoeiras e esforço.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Parque%20das%20Cachoeiras%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer o Parque das Cachoeiras</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Boca da Onça</h3>
+        <p class="subtitle">Para quem quer uma experiência de natureza mais intensa</p>
+        <p class="body-text">Na Serra da Bodoquena, reúne trilhas, piscinas naturais, cânions e a Cachoeira Boca da Onça (156 m de altura). Na Trilha Adventure, aprox. 4 km passando por diversas cachoeiras. Há mais de 800 degraus ao longo do trajeto, dependendo da modalidade.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 61–62 km de Bonito</li>
+          <li>⏱️ Reserve o dia inteiro</li>
+          <li>🥾 Percursos com vários quilômetros</li>
+          <li>🪜 Grande quantidade de degraus</li>
+          <li>🍽️ Modalidades com almoço incluído</li>
+          <li>💪 Esforço: moderado a alto</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> quem gosta de trilha e está disposto a uma experiência fisicamente mais intensa.</div>
+        <div class="diff"><b>Diferencial:</b> a cachoeira mais alta de Mato Grosso do Sul.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Boca%20da%20On%C3%A7a%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20saber%20qual%20trilha%20combina%20com%20minha%20viagem." target="_blank" rel="noopener">Quero saber qual trilha da Boca da Onça escolher</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Rio do Peixe</h3>
+        <p class="subtitle">Cachoeiras e muita vida silvestre</p>
+        <p class="body-text">Combina caminhada, cachoeiras, piscinas naturais e contato constante com a fauna. Inclui plataformas e atividades como tirolesa e carretilha, conforme a operação, além de observação de araras e macacos.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 36 km de Bonito</li>
+          <li>⏱️ Cerca de 4 a 5 horas</li>
+          <li>🥾 Percurso total: aprox. 4,3 km</li>
+          <li>🍽️ Operação com almoço incluído</li>
+          <li>💪 Esforço: leve a moderado</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> famílias que querem um dia descontraído com bastante contato com a natureza.</div>
+        <div class="diff"><b>Diferencial:</b> cachoeiras aliadas a uma experiência muito ligada à fauna local.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Rio%20do%20Peixe%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer o Rio do Peixe</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Cachoeiras Serra da Bodoquena</h3>
+        <p class="subtitle">Um dia inteiro cercado de natureza</p>
+        <p class="body-text">No município de Bodoquena, para quem quer dedicar um dia inteiro às paisagens da Serra. Circuito de ~2.500 m com oito paradas para banho no Rio Betione, além de área de balneário e outras atividades conforme a modalidade.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 78 km de Bonito</li>
+          <li>⏱️ Dia inteiro</li>
+          <li>🥾 Aprox. 2,5 km no circuito principal</li>
+          <li>💦 Oito paradas para banho</li>
+          <li>🏖️ Área de balneário</li>
+          <li>💪 Esforço: leve a moderado</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> quem tem mais dias em Bonito e quer conhecer também a região de Bodoquena.</div>
+        <div class="diff"><b>Diferencial:</b> cachoeiras + balneário + um dia inteiro na Serra da Bodoquena.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Serra%20da%20Bodoquena%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer a Serra da Bodoquena</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== BALNEÁRIOS ===================== -->
+  <section class="section-block" id="balnearios">
+    <div class="section-head">
+      <span class="icon-label">🏖️ BALNEÁRIOS</span>
+      <h2>Balneários em Bonito</h2>
+      <p>Nem todo dia da viagem precisa ter horário marcado para cada atividade. Os balneários são ideais para desacelerar e aproveitar os rios e áreas de banho com mais liberdade. O melhor balneário depende muito de como você quer aproveitar o dia.</p>
+    </div>
+    <div class="tours-grid">
+
+      <div class="tour-card">
+        <h3>Balneário Municipal</h3>
+        <p class="subtitle">Um clássico às margens do Rio Formoso</p>
+        <p class="body-text">Um dos balneários mais tradicionais, bem próximo da cidade. O Rio Formoso forma diferentes espaços de banho, com piraputangas e outras espécies visíveis na água. Estacionamento, lanchonetes, restaurantes, sanitários e áreas esportivas.</p>
+        <ul class="info-list">
+          <li>📍 Apenas 7 km de Bonito</li>
+          <li>👨‍👩‍👧 Perfil familiar</li>
+          <li>🍴 Restaurantes e lanchonetes</li>
+          <li>💪 Esforço: livre</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> quem quer uma opção tradicional sem atividades guiadas.</div>
+        <div class="diff"><b>Diferencial:</b> proximidade e acesso direto ao Rio Formoso.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Balne%C3%A1rio%20Municipal%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero incluir o Balneário Municipal</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Praia da Figueira</h3>
+        <p class="subtitle">Clima de praia em plena Bonito</p>
+        <p class="body-text">Grande lagoa de aprox. 60 mil m², cercada por areia clara. Atividades opcionais como tirolesa, caiaque, pedalinho, stand up paddle e passeio de barco. Restaurante, lanchonete, redário e áreas de descanso.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 16 km de Bonito</li>
+          <li>👶 Indicada para todas as idades</li>
+          <li>🎯 Diversas atividades opcionais</li>
+          <li>💪 Esforço: livre</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> famílias e grupos que querem passar várias horas no mesmo lugar.</div>
+        <div class="diff"><b>Diferencial:</b> estrutura de praia de água doce e variedade de atividades.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Praia%20da%20Figueira%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer a Praia da Figueira</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Bosque das Águas</h3>
+        <p class="subtitle">Para curtir o Rio Formoso com tranquilidade</p>
+        <p class="body-text">Balneário de proposta rústica e integrado à natureza, com seis decks em diferentes pontos do Rio Formoso, inclusive áreas para crianças. Ideal para nadar, descansar e aproveitar o rio sem programação extensa.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 8 km de Bonito</li>
+          <li>👧 Decks com espaços infantis</li>
+          <li>🌿 Estrutura mais rústica</li>
+          <li>💪 Esforço: livre</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> famílias e quem busca um balneário simples e tranquilo.</div>
+        <div class="diff"><b>Diferencial:</b> seis áreas independentes de acesso ao Rio Formoso.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Bosque%20das%20%C3%81guas%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer o Bosque das Águas</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Eco Park Porto da Ilha</h3>
+        <p class="subtitle">Balneário para quem também quer aventura</p>
+        <p class="body-text">Às margens do Rio Formoso, combina área de lazer com atividades como bote, boia cross, caiaque inflável e stand up paddle, contratadas separadamente ou em combinações.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 12 km de Bonito</li>
+          <li>🚣 Várias atividades aquáticas opcionais</li>
+          <li>💪 Esforço: você escolhe</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> grupos em que uns querem relaxar e outros querem atividades mais animadas.</div>
+        <div class="diff"><b>Diferencial:</b> transforma um dia de balneário em um dia de aventuras aquáticas.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Eco%20Park%20Porto%20da%20Ilha%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer o Eco Park Porto da Ilha</a>
+      </div>
+
+      <div class="tour-card">
+        <h3>Balneário do Sol</h3>
+        <p class="subtitle">Lazer às margens do Rio Formoso</p>
+        <p class="body-text">Áreas para banho no Rio Formoso e piscinas, com piraputangas, curimbas e dourados no cenário. Restaurante, churrasqueiras, salão de jogos e parque infantil.</p>
+        <ul class="info-list">
+          <li>📍 Aprox. 12 km de Bonito</li>
+          <li>🛝 Parque infantil</li>
+          <li>💪 Esforço: livre</li>
+        </ul>
+        <div class="who"><b>Para quem indicamos:</b> famílias que querem programação leve e estrutura para várias horas.</div>
+        <div class="diff"><b>Diferencial:</b> lazer simples e familiar junto ao Rio Formoso.</div>
+        <a class="btn btn-green cta" href="https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20passeio%20Balne%C3%A1rio%20do%20Sol%20no%20Guia%20de%20Bonito%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20consultar%20valor%20e%20disponibilidade%20para%20minha%20viagem." target="_blank" rel="noopener">Quero conhecer o Balneário do Sol</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== QUAL PASSEIO ESCOLHER ===================== -->
+  <section class="section-block" id="qual-escolher">
+    <div class="section-head">
+      <span class="icon-label">💜 GUIA RÁPIDO</span>
+      <h2>Qual passeio escolher em Bonito?</h2>
+      <p>Com tantas opções, é normal pensar: "quais realmente valem a pena para mim?" A resposta depende de quem está viajando.</p>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card">
+        <h4>🧭 É sua primeira viagem a Bonito?</h4>
+        <ul>
+          <li>💦 Uma flutuação: Rio Sucuri, Rio da Prata, Nascente Azul ou Aquário Natural</li>
+          <li>🪨 Uma gruta: Gruta do Lago Azul</li>
+          <li>🌿 Um circuito de cachoeiras: Estância Mimosa ou Parque das Cachoeiras</li>
+          <li>🏖️ Um momento mais livre: um dos balneários</li>
+        </ul>
+      </div>
+      <div class="guide-card">
+        <h4>👶 Vai viajar com crianças pequenas?</h4>
+        <ul>
+          <li>Nascente Azul — flutuação a partir de 4 anos e estrutura adaptada</li>
+          <li>Rio Sucuri — idade mínima também de 4 anos</li>
+          <li>Bosque das Águas — áreas pensadas para crianças</li>
+          <li>Praia da Figueira — indicada para todas as idades</li>
+        </ul>
+      </div>
+      <div class="guide-card">
+        <h4>🌊 Quer uma flutuação tranquila?</h4>
+        <ul>
+          <li>Nascente Azul</li>
+          <li>Rio Sucuri</li>
+          <li>Aquário Natural</li>
+        </ul>
+      </div>
+      <div class="guide-card">
+        <h4>🐟 Quer ver muitos peixes?</h4>
+        <ul>
+          <li>Rio da Prata — extensão da experiência e riqueza da vida aquática</li>
+        </ul>
+      </div>
+      <div class="guide-card">
+        <h4>✨ Quer algo diferente de tudo?</h4>
+        <ul>
+          <li>Gruta do Mimoso</li>
+          <li>Lagoa Misteriosa</li>
+        </ul>
+      </div>
+      <div class="guide-card">
+        <h4>🥾 Gosta de trilha e quer intensidade?</h4>
+        <ul>
+          <li>Boca da Onça</li>
+        </ul>
+      </div>
+      <div class="guide-card">
+        <h4>💦 Cachoeiras com caminhada tranquila?</h4>
+        <ul>
+          <li>Parque das Cachoeiras — circuito classificado como leve pelo próprio atrativo</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="final-cta">
+    <h2>💜 Qual passeio combina com o seu roteiro?</h2>
+    <p>Em Bonito, não basta escolher os passeios mais bonitos. É importante combinar horários, deslocamentos, disponibilidade, idade dos viajantes e nível de esforço para montar um roteiro equilibrado. A Passaporte Mágico pode cuidar dessa organização para você. Informe suas datas e quem vai viajar e nós ajudamos a selecionar as melhores experiências para o seu perfil.</p>
+    <a class="btn btn-green" href="https://wa.me/?text=Ol%C3%A1!%20Estou%20vendo%20o%20Guia%20de%20Bonito%20no%20site%20da%20Passaporte%20M%C3%A1gico%20e%20gostaria%20de%20ajuda%20para%20montar%20meu%20roteiro." target="_blank" rel="noopener">Montar meu roteiro em Bonito</a>
+  </div>
+
 </main>
 
-<footer>Informacoes de referencia; confirme valores, horarios e disponibilidade com as agencias credenciadas de Bonito.</footer>
-
-<script>
-const passeios = [
-  {
-    nome: "Rio da Prata",
-    cat: "flutuacao",
-    catLabel: "Flutuacao",
-    desc: "Flutuacao em um dos rios mais transparentes do mundo, com trilha na mata e observacao de cardumes de dourados e piraputangas.",
-    duracao: "Meio dia (~4h)",
-    dificuldade: "Facil"
-  },
-  {
-    nome: "Rio Sucuri",
-    cat: "flutuacao",
-    catLabel: "Flutuacao",
-    desc: "Flutuacao curta e tranquila, ideal para iniciantes e familias, em aguas azul-turquesa com nascente visivel no fundo.",
-    duracao: "Meio dia (~3h)",
-    dificuldade: "Facil"
-  },
-  {
-    nome: "Aquario Natural",
-    cat: "flutuacao",
-    catLabel: "Flutuacao",
-    desc: "Passeio curto de flutuacao proximo a nascente do Rio Baia Bonita, com grande concentracao de peixes e agua muito clara.",
-    duracao: "Meio dia (~3h)",
-    dificuldade: "Facil"
-  },
-  {
-    nome: "Gruta do Lago Azul",
-    cat: "gruta",
-    catLabel: "Gruta",
-    desc: "Caverna com um lago subterraneo de coloracao azul intensa, formada por estalactites e estalagmites. Patrimonio Natural da Humanidade pela UNESCO.",
-    duracao: "1h30",
-    dificuldade: "Facil a moderado"
-  },
-  {
-    nome: "Gruta de Sao Miguel",
-    cat: "gruta",
-    catLabel: "Gruta",
-    desc: "Gruta com formacoes de calcario e um poco de aproximadamente 45 metros de profundidade, com opcao de rapel.",
-    duracao: "2h",
-    dificuldade: "Moderado"
-  },
-  {
-    nome: "Buraco das Araras",
-    cat: "cachoeira",
-    catLabel: "Mirante",
-    desc: "Uma das maiores dolinas do Brasil, com cerca de 500 metros de circunferencia, famosa pela grande populacao de araras-vermelhas.",
-    duracao: "1h30",
-    dificuldade: "Facil"
-  },
-  {
-    nome: "Boca da Onca",
-    cat: "cachoeira",
-    catLabel: "Cachoeira",
-    desc: "Complexo de trilhas e cachoeiras que abriga a maior queda d'agua de Bonito, com cerca de 156 metros de altura.",
-    duracao: "Dia inteiro (~6h)",
-    dificuldade: "Moderado"
-  },
-  {
-    nome: "Estancia Mimosa",
-    cat: "cachoeira",
-    catLabel: "Cachoeira",
-    desc: "Trilha ecologica com oito cachoeiras e piscinas naturais para banho, em meio a mata preservada.",
-    duracao: "Meio dia (~4h)",
-    dificuldade: "Facil"
-  },
-  {
-    nome: "Abismo Anhumas",
-    cat: "mergulho",
-    catLabel: "Mergulho",
-    desc: "Descida de rapel de 72 metros ate uma caverna com lago subterraneo, seguida de mergulho autonomo ou flutuacao entre formacoes de calcario.",
-    duracao: "Dia inteiro (~6h)",
-    dificuldade: "Avancado"
-  },
-  {
-    nome: "Lagoa Misteriosa",
-    cat: "mergulho",
-    catLabel: "Mergulho",
-    desc: "Lagoa de aguas azuis profundas, com mais de 220 metros de profundidade ja mapeados, indicada para mergulho livre e autonomo.",
-    duracao: "Meio dia (~4h)",
-    dificuldade: "Moderado a avancado"
-  }
-];
-
-const grid = document.getElementById("grid");
-const filters = document.getElementById("filters");
-
-function render(cat) {
-  grid.innerHTML = "";
-  passeios
-    .filter(p => cat === "todos" || p.cat === cat)
-    .forEach(p => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <div class="top">
-          <h2>${p.nome}</h2>
-          <span class="badge">${p.catLabel}</span>
-        </div>
-        <p class="desc">${p.desc}</p>
-        <div class="meta">
-          <span>⏱ ${p.duracao}</span>
-          <span>⛰ ${p.dificuldade}</span>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-}
-
-filters.addEventListener("click", (e) => {
-  const btn = e.target.closest(".filter-btn");
-  if (!btn) return;
-  filters.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  render(btn.dataset.cat);
-});
-
-render("todos");
-</script>
+<footer>
+  💰 Valor do passeio: consulte o valor e a disponibilidade para a sua data.<br />
+  Distâncias, idades mínimas e regras de acesso são informativas e podem mudar — confirme sempre com a Passaporte Mágico antes de fechar a viagem.
+</footer>
 
 </body>
 </html>
