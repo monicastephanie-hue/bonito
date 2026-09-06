@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Passeios de Bonito</title>
+<style>
+  :root {
+    --bg: #f4f9f8;
+    --card-bg: #ffffff;
+    --text: #16302b;
+    --muted: #4c6b63;
+    --accent: #0f9d80;
+    --accent-dark: #0b7c66;
+    --border: #dbeee8;
+    --badge-bg: #e4f5ef;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1a17;
+      --card-bg: #16241f;
+      --text: #e8f3ef;
+      --muted: #9fc0b6;
+      --accent: #2fd6ac;
+      --accent-dark: #23b092;
+      --border: #223b33;
+      --badge-bg: #1c332c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1a17;
+    --card-bg: #16241f;
+    --text: #e8f3ef;
+    --muted: #9fc0b6;
+    --accent: #2fd6ac;
+    --accent-dark: #23b092;
+    --border: #223b33;
+    --badge-bg: #1c332c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  header {
+    padding: 56px 24px 40px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--badge-bg), transparent);
+  }
+  header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(28px, 4vw, 42px);
+    color: var(--accent-dark);
+  }
+  header p {
+    margin: 0 auto;
+    max-width: 640px;
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.5;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 24px 32px;
+  }
+  .filter-btn {
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--accent); }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #06231c;
+    font-weight: 600;
+  }
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 64px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .card .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .card h2 {
+    margin: 0;
+    font-size: 19px;
+  }
+  .badge {
+    flex-shrink: 0;
+    background: var(--badge-bg);
+    color: var(--accent-dark);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .card p.desc {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px dashed var(--border);
+    padding-top: 10px;
+    margin-top: 4px;
+  }
+  .meta span { white-space: nowrap; }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 24px;
+  }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Passeios de Bonito - MS</h1>
+  <p>Um roteiro com os principais atrativos ecoturisticos de Bonito, Mato Grosso do Sul: rios de aguas cristalinas, grutas, cachoeiras e flutuacao entre peixes.</p>
+</header>
+
+<div class="filters" id="filters">
+  <button class="filter-btn active" data-cat="todos">Todos</button>
+  <button class="filter-btn" data-cat="flutuacao">Flutuacao</button>
+  <button class="filter-btn" data-cat="gruta">Gruta</button>
+  <button class="filter-btn" data-cat="cachoeira">Cachoeira</button>
+  <button class="filter-btn" data-cat="mergulho">Mergulho</button>
+</div>
+
+<main>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>Informacoes de referencia; confirme valores, horarios e disponibilidade com as agencias credenciadas de Bonito.</footer>
+
+<script>
+const passeios = [
+  {
+    nome: "Rio da Prata",
+    cat: "flutuacao",
+    catLabel: "Flutuacao",
+    desc: "Flutuacao em um dos rios mais transparentes do mundo, com trilha na mata e observacao de cardumes de dourados e piraputangas.",
+    duracao: "Meio dia (~4h)",
+    dificuldade: "Facil"
+  },
+  {
+    nome: "Rio Sucuri",
+    cat: "flutuacao",
+    catLabel: "Flutuacao",
+    desc: "Flutuacao curta e tranquila, ideal para iniciantes e familias, em aguas azul-turquesa com nascente visivel no fundo.",
+    duracao: "Meio dia (~3h)",
+    dificuldade: "Facil"
+  },
+  {
+    nome: "Aquario Natural",
+    cat: "flutuacao",
+    catLabel: "Flutuacao",
+    desc: "Passeio curto de flutuacao proximo a nascente do Rio Baia Bonita, com grande concentracao de peixes e agua muito clara.",
+    duracao: "Meio dia (~3h)",
+    dificuldade: "Facil"
+  },
+  {
+    nome: "Gruta do Lago Azul",
+    cat: "gruta",
+    catLabel: "Gruta",
+    desc: "Caverna com um lago subterraneo de coloracao azul intensa, formada por estalactites e estalagmites. Patrimonio Natural da Humanidade pela UNESCO.",
+    duracao: "1h30",
+    dificuldade: "Facil a moderado"
+  },
+  {
+    nome: "Gruta de Sao Miguel",
+    cat: "gruta",
+    catLabel: "Gruta",
+    desc: "Gruta com formacoes de calcario e um poco de aproximadamente 45 metros de profundidade, com opcao de rapel.",
+    duracao: "2h",
+    dificuldade: "Moderado"
+  },
+  {
+    nome: "Buraco das Araras",
+    cat: "cachoeira",
+    catLabel: "Mirante",
+    desc: "Uma das maiores dolinas do Brasil, com cerca de 500 metros de circunferencia, famosa pela grande populacao de araras-vermelhas.",
+    duracao: "1h30",
+    dificuldade: "Facil"
+  },
+  {
+    nome: "Boca da Onca",
+    cat: "cachoeira",
+    catLabel: "Cachoeira",
+    desc: "Complexo de trilhas e cachoeiras que abriga a maior queda d'agua de Bonito, com cerca de 156 metros de altura.",
+    duracao: "Dia inteiro (~6h)",
+    dificuldade: "Moderado"
+  },
+  {
+    nome: "Estancia Mimosa",
+    cat: "cachoeira",
+    catLabel: "Cachoeira",
+    desc: "Trilha ecologica com oito cachoeiras e piscinas naturais para banho, em meio a mata preservada.",
+    duracao: "Meio dia (~4h)",
+    dificuldade: "Facil"
+  },
+  {
+    nome: "Abismo Anhumas",
+    cat: "mergulho",
+    catLabel: "Mergulho",
+    desc: "Descida de rapel de 72 metros ate uma caverna com lago subterraneo, seguida de mergulho autonomo ou flutuacao entre formacoes de calcario.",
+    duracao: "Dia inteiro (~6h)",
+    dificuldade: "Avancado"
+  },
+  {
+    nome: "Lagoa Misteriosa",
+    cat: "mergulho",
+    catLabel: "Mergulho",
+    desc: "Lagoa de aguas azuis profundas, com mais de 220 metros de profundidade ja mapeados, indicada para mergulho livre e autonomo.",
+    duracao: "Meio dia (~4h)",
+    dificuldade: "Moderado a avancado"
+  }
+];
+
+const grid = document.getElementById("grid");
+const filters = document.getElementById("filters");
+
+function render(cat) {
+  grid.innerHTML = "";
+  passeios
+    .filter(p => cat === "todos" || p.cat === cat)
+    .forEach(p => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="top">
+          <h2>${p.nome}</h2>
+          <span class="badge">${p.catLabel}</span>
+        </div>
+        <p class="desc">${p.desc}</p>
+        <div class="meta">
+          <span>⏱ ${p.duracao}</span>
+          <span>⛰ ${p.dificuldade}</span>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+}
+
+filters.addEventListener("click", (e) => {
+  const btn = e.target.closest(".filter-btn");
+  if (!btn) return;
+  filters.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  render(btn.dataset.cat);
+});
+
+render("todos");
+</script>
+
+</body>
+</html>
