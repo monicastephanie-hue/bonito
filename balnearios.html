@@ -176,7 +176,7 @@
   /* ---- Category overview cards ---- */
   .cat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
     gap: 20px;
     padding: 40px 0 16px;
   }
@@ -229,7 +229,7 @@
     padding: 28px 20px;
     margin: 32px 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
     gap: 18px;
     text-align: center;
   }
@@ -257,7 +257,7 @@
   /* ---- Tour cards ---- */
   .tours-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 22px;
     padding-bottom: 12px;
   }
@@ -297,6 +297,7 @@
     justify-content: center;
     text-align: center;
     font-size: 13.5px;
+    white-space: normal;
   }
   .note {
     background: #fff4de;
@@ -313,7 +314,7 @@
   /* ---- Qual passeio escolher ---- */
   .guide-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
     gap: 18px;
     padding-bottom: 20px;
   }
@@ -346,6 +347,13 @@
   }
 
   /* filter chips reused inline within flutuações etc not needed anymore */
+
+  /* ---- Mobile safety ---- */
+  @media (max-width: 480px) {
+    .btn { white-space: normal; text-align: center; }
+    main { padding: 0 16px; }
+    .navbar { padding: 12px 16px; }
+  }
 </style>
 </head>
 <body>
